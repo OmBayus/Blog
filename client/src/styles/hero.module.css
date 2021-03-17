@@ -1,0 +1,17 @@
+.hero_section{
+      background: linear-gradient(#2D247F,#1E1566);
+      position: relative;
+      padding: 70px 0;
+      background-size: cover;
+      min-height: 400px;
+      display: flex;
+      align-items: center!important;
+}
+
+.hero_section h2{
+      font-size: 42px;
+      color: #fff;
+      text-transform: capitalize;
+      margin-bottom: 0;
+      font-weight: bold;
+}
