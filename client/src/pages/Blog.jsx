@@ -3,13 +3,15 @@ import React from "react"
 //Components
 import Navbar from "../components/Navbar"
 import Hero from "../components/Hero"
+import BlogMain from "../components/BlogMain"
 
 const Blog = ()=>{
       return(
-            <div>
+            <React.Fragment>
                   <Navbar/>
                   <Hero/>
-            </div>
+                  <BlogMain/>
+            </React.Fragment>
       )
 }
 

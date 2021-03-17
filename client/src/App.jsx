@@ -6,9 +6,9 @@ import Blog from "./pages/Blog"
 
 const App = ()=>{
   return(
-    <div>
+    <React.Fragment>
       <Blog/>
-    </div>
+    </React.Fragment>
   )
 }
 
