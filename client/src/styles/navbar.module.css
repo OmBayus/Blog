@@ -1,0 +1,32 @@
+.header{
+      display: block;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 10;
+      padding: 10px 0;
+}
+
+.fixed{
+     position: fixed;
+     background-color: rgba(0, 0, 0, 0.802);
+}
+
+
+.brand{
+      color: white!important;
+      font-size: 2rem;
+      font-weight: 700;
+}
+
+.github{
+      color: white!important;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      transition: opactiy .2s;
+}
+
+.github:hover{
+      opacity: 0.8;
+}
