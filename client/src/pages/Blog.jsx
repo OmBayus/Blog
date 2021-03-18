@@ -1,7 +1,7 @@
 import React from "react"
 
 //Components
-import Navbar from "../components/Navbar"
+import Navbar from "../layouts/Navbar"
 import Hero from "../components/Hero"
 import BlogMain from "../components/BlogMain"
 
