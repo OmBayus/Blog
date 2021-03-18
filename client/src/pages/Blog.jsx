@@ -4,6 +4,7 @@ import React from "react"
 import Navbar from "../layouts/Navbar"
 import Hero from "../components/Hero"
 import BlogMain from "../components/BlogMain"
+import Footer from "../layouts/Footer"
 
 const Blog = ()=>{
       return(
@@ -11,6 +12,7 @@ const Blog = ()=>{
                   <Navbar/>
                   <Hero/>
                   <BlogMain/>
+                  <Footer/>
             </React.Fragment>
       )
 }
