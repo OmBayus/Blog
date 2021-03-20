@@ -14,7 +14,7 @@ const BlogItem = ()=>{
                         <div className={blogItemStyle.blogItemImg}>
                               <Image className={blogItemStyle.img} src="/resim.webp"thumbnail />
 
-                              <div href="#" className={blogItemStyle.date}>
+                              <div className={blogItemStyle.date}>
                                     <h3>15</h3>
                                     <p>Jan</p>
                               </div>
@@ -26,6 +26,10 @@ const BlogItem = ()=>{
                                     <h2>Lorem Lorem Lorem Lorem</h2>
                               </div>
                               <p>Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem</p>
+                              <ul className={blogItemStyle.blog_info}>
+                                    <li><div><i class="far fa-user"></i> Travel, Lifestyle</div></li>
+                                    <li><div><i class="far fa-comments"></i> 03 Comments</div></li>
+                            </ul>
                         </div>
                   </a>
             </article>
