@@ -52,7 +52,35 @@
 }
 .details p {
       margin-bottom: 30px;
-  }
+}
+
+.blog_info{
+      margin-top: 0;
+      margin-bottom: 1rem;
+}
+
+.blog_info li{
+      float: left;
+      font-size: 14px;
+}
+
+.blog_info li div {
+      color: #999999;
+}
+
+.blog_info li:first-child div::after {
+      content: "|";
+      padding-left: 10px;
+      padding-right: 10px;
+}
+
+.blog_info::after{
+      content: "";
+      display: block;
+      clear: both;
+      display: table;
+}
+
 
 @media (min-width: 768px){
       .date{
