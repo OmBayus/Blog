@@ -8,6 +8,8 @@ body {
 
 img{
       max-width: 100%;
+      vertical-align: middle;
+      border-style: none;
 }
 
 a:hover{
@@ -18,4 +20,10 @@ a:hover{
 ul{
       list-style: none;
       padding: 0;
+}
+
+
+h1,h2,h3,h4,h5,h6{
+      font-family: "Poppins", sans-serif;
+      font-weight: bold;
 }

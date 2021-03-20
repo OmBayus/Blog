@@ -1,10 +1,13 @@
 import React from "react"
 
-//Components
+
+//Layouts
 import Navbar from "../layouts/Navbar"
+import Footer from "../layouts/Footer"
+
+//Components
 import Hero from "../components/Hero"
 import BlogMain from "../components/BlogMain"
-import Footer from "../layouts/Footer"
 
 const Blog = ()=>{
       return(

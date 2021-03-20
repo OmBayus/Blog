@@ -7,11 +7,12 @@ import {Container} from "react-bootstrap"
 import heroStyle from "../styles/hero.module.css"
 
 
-const Hero = () =>{
+const Hero = (props) =>{
       return(
             <section className={heroStyle.hero_section}>
                   <Container className="text-center">
-                        <h2>Blog</h2>
+                        <h2>{props.title ? props.title : "Blog"}</h2>
+                        {props.children}
                   </Container>
             </section>
       )

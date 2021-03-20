@@ -29,7 +29,7 @@ const BlogItem = ()=>{
                               <ul className={blogItemStyle.blog_info}>
                                     <li><div><i class="far fa-user"></i> Travel, Lifestyle</div></li>
                                     <li><div><i class="far fa-comments"></i> 03 Comments</div></li>
-                            </ul>
+                              </ul>
                         </div>
                   </a>
             </article>
