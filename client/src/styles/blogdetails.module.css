@@ -1,0 +1,25 @@
+.banner{
+      display: inline-block;
+}
+
+.banner ol{
+      background: transparent;
+      padding: 0;
+}
+
+.banner ol li{
+      padding: .1rem;
+}
+
+.banner ol li a{
+      text-transform: capitalize;
+      color: #fff;
+}
+
+.banner ol li a:hover{
+      opacity: 0.7;
+}
+
+.banner li{
+      color: #fff!important;
+}
