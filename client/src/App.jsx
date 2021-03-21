@@ -1,16 +1,24 @@
 import React from "react"
+import {Switch, Route} from "react-router-dom"
 
 //pages
 import Blog from "./pages/Blog"
-// import BlogDetails from "./pages/BlogDetails"
+import BlogDetails from "./pages/BlogDetails"
 
 
 const App = ()=>{
   return(
-    <React.Fragment>
+    <Switch>
+
+      <Route path="/" exact>
       <Blog/>
-      {/* <BlogDetails/> */}
-    </React.Fragment>
+      </Route>
+
+      <Route path="/:id">
+        <BlogDetails/>
+      </Route>
+      
+    </Switch>
   )
 }
 
