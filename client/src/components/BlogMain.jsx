@@ -9,15 +9,13 @@ import blogMainStyles from "../styles/blogmain.module.css"
 //Component
 import BlogItem from "./BlogItem"
 
-const BlogMain = ()=>{
+const BlogMain = ({posts})=>{
       return(
             <section className={blogMainStyles.blogMain}>
                   <Container>
-                        <BlogItem />
-                        <BlogItem/>
-                        <BlogItem/>
-                        {/* BlogItem */}
-                        {/* BlogItem */}
+                        {
+                              posts.map(post=>(<BlogItem post={post}/>))
+                        }
                   </Container>
             </section>
       )

@@ -1,15 +1,15 @@
 import React from "react"
 
 //pages
-// import Blog from "./pages/Blog"
-import BlogDetails from "./pages/BlogDetails"
+import Blog from "./pages/Blog"
+// import BlogDetails from "./pages/BlogDetails"
 
 
 const App = ()=>{
   return(
     <React.Fragment>
-      {/* <Blog/> */}
-      <BlogDetails/>
+      <Blog/>
+      {/* <BlogDetails/> */}
     </React.Fragment>
   )
 }
