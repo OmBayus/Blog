@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useEffect } from "react"
+import {useRouteMatch} from "react-router-dom"
 
 //Bootstrap
 import {Breadcrumb} from "react-bootstrap"
@@ -15,6 +16,14 @@ import Hero from "../components/Hero"
 import BlogDetailsMain from "../components/BlogDetailsMain"
 
 const SinglePageBlog = ()=>{
+
+      const match = useRouteMatch("/:id").params.id
+
+      useEffect(()=>{
+            window.scroll(0,0)
+      },[])
+
+
       return(
             <React.Fragment>
                   <Navbar/>
@@ -24,7 +33,7 @@ const SinglePageBlog = ()=>{
                         <Breadcrumb.Item active>Blog Details</Breadcrumb.Item>
                   </Breadcrumb>
                   </Hero>
-                  <BlogDetailsMain/>
+                  <BlogDetailsMain match={match}/>
                   <Footer/>
             </React.Fragment>
       )

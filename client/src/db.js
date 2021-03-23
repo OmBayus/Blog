@@ -1,5 +1,6 @@
 const db = [
       {
+            id:1,
             title:"Title 1",
             topic:"Travel",
             imgUrl:"/resim.webp",
@@ -33,6 +34,7 @@ const db = [
             ]
       },
       {
+            id:2,
             title:"Title 2",
             topic:"Fun",
             imgUrl:"/resim.webp",
@@ -66,6 +68,7 @@ const db = [
             ]
       },
       {
+            id:3,
             title:"Title 3",
             topic:"Travel",
             imgUrl:"/resim.webp",
@@ -99,6 +102,7 @@ const db = [
             ]
       },
       {
+            id:4,
             title:"Title 4",
             topic:"Travel",
             imgUrl:"/resim.webp",

@@ -14,7 +14,7 @@ const BlogMain = ({posts})=>{
             <section className={blogMainStyles.blogMain}>
                   <Container>
                         {
-                              posts.map(post=>(<BlogItem post={post}/>))
+                              posts.map(post=>(<BlogItem key={post.id} post={post}/>))
                         }
                   </Container>
             </section>
