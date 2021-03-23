@@ -18,11 +18,11 @@ const Footer = ()=>{
                                     </div>
                                     <div className={footerStyle.copyright_text}><p>Copyright © 2021 | Bu Websitesi <a href="https://github.com/OmBayus">OmBayus</a> tarafından yapılmıştır</p></div>
                                     <div className={footerStyle.ft_social}>
-                                          <a href="/" className={footerStyle.social_icon_facebook}><i class="fa fa-facebook"></i></a>
-                                          <a href="/" className={footerStyle.social_icon_twitter}><i class="fa fa-twitter"></i></a>
-                                          <a href="/" className={footerStyle.social_icon_linkedin}><i class="fa fa-linkedin"></i></a>
-                                          <a href="/" className={footerStyle.social_icon_instagram}><i class="fa fa-instagram"></i></a>
-                                          <a href="/" className={footerStyle.social_icon_youtube}><i class="fa fa-youtube-play"></i></a>
+                                          <a href="/" className={footerStyle.social_icon_facebook}><i className="fa fa-facebook"></i></a>
+                                          <a href="/" className={footerStyle.social_icon_twitter}><i className="fa fa-twitter"></i></a>
+                                          <a href="/" className={footerStyle.social_icon_linkedin}><i className="fa fa-linkedin"></i></a>
+                                          <a href="/" className={footerStyle.social_icon_instagram}><i className="fa fa-instagram"></i></a>
+                                          <a href="/" className={footerStyle.social_icon_youtube}><i className="fa fa-youtube-play"></i></a>
                                     </div>
                               </div>
                         </Col>
