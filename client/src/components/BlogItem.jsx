@@ -1,4 +1,5 @@
 import React from "react"
+import {Link} from "react-router-dom"
 
 //bootstrap
 import {Image} from "react-bootstrap"
@@ -13,7 +14,7 @@ const monthNames = ["Jan", "Feb", "Marc", "Apr", "May", "June",
 const BlogItem = ({post})=>{
       return(
             <article className={blogItemStyle.blogItem}>
-                  <a href="/">
+                  <Link to={"/"+post.id}>
 
                         <div className={blogItemStyle.blogItemImg}>
                               <Image className={blogItemStyle.img} src={post.imgUrl ? post.imgUrl : ""} thumbnail />
@@ -31,11 +32,11 @@ const BlogItem = ({post})=>{
                               </div>
                               <p>{post.details[0]}</p>
                               <ul className={blogItemStyle.blog_info}>
-                                    <li><div><i class="far fa-user"></i> {post.topic}</div></li>
-                                    <li><div><i class="far fa-comments"></i> {post.comments.length} Comments</div></li>
+                                    <li><div><i className="far fa-user"></i> {post.topic}</div></li>
+                                    <li><div><i className="far fa-comments"></i> {post.comments.length} Comments</div></li>
                               </ul>
                         </div>
-                  </a>
+                  </Link>
             </article>
       )
 }
