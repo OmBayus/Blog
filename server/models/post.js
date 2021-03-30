@@ -25,24 +25,42 @@ const postSchema = new mongoose.Schema({
       },
       imgUrl:{
             type:String,
-            required:true
+            required:false
       },
       date:{
             type:Date,
-            required:true
+            required:false
       },
       details:{
             type:Array,
             required:true
       },
       author:{
-            type:Object,
-            required:true
+            name:{
+                  type:String,
+                  required:true
+            },
+            details:{
+                  type:String,
+                  required:true
+            }
       },
-      comments:{
-            type:Array,
-            required:true
-      }
+      comments:[
+            {
+                  name:{
+                        type:String,
+                        required:false
+                  },
+                  date:{
+                        type:Date,
+                        required:false
+                  },
+                  details:{
+                        type:String,
+                        required:false
+                  },
+            }
+      ]
 })
 
 module.exports = mongoose.model('Post', postSchema)
