@@ -26,5 +26,35 @@ router.post("/",(req,res)=>{
       })
 })
 
+router.put("/",(req,res)=>{
+
+      Post.findOne({_id:req.body.id},(err,item)=>{
+            if(!err){
+                  var post = item
+                  post.title = req.body.title
+                  post.topic = req.body.topic
+                  post.details = req.body.details
+                  
+
+                  Post.findOneAndUpdate({_id:req.body.id},post,{new:true})
+                        .then(updatedPost=>{
+                              res.json(updatedPost)
+                        })
+                        .catch(err=> res.json({error:err.message}))
+            }
+            else{
+                  res.json({error:err.message})
+            }
+      })
+})
+
+router.delete("/",(req,res)=>{
+      Post.findOneAndDelete({_id:req.body.id})
+            .then(item=>{
+                  res.json(item)
+            })
+            .catch(err=>res.json({error:err.message}))
+})
+
 
 module.exports = router
