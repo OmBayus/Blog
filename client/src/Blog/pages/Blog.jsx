@@ -1,4 +1,4 @@
-import React from "react"
+import React,{useEffect} from "react"
 
 //Layouts
 import Navbar from "../layouts/Navbar"
@@ -12,6 +12,12 @@ import BlogMain from "../components/BlogMain"
 import {db} from "../db"
 
 const Blog = ()=>{
+
+      useEffect(()=>{
+            window.scroll(0,0)
+      },[])
+
+
       return(
             <React.Fragment>
                   <Navbar/>
