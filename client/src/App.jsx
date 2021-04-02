@@ -2,8 +2,10 @@ import React from "react"
 import {Switch, Route} from "react-router-dom"
 
 //pages
-import Blog from "./pages/Blog"
-import BlogDetails from "./pages/BlogDetails"
+import Blog from "./Blog/pages/Blog"
+import BlogDetails from "./Blog/pages/BlogDetails"
+import LoginPage from "./BlogPanel/pages/Login"
+import BlogPanel from "./BlogPanel/pages/Panel"
 
 
 const App = ()=>{
@@ -11,7 +13,15 @@ const App = ()=>{
     <Switch>
 
       <Route path="/" exact>
-      <Blog/>
+        <Blog/>
+      </Route>
+
+      <Route path="/panel" exact>
+        <BlogPanel/>
+      </Route>
+
+      <Route path="/login" exact>
+        <LoginPage/>
       </Route>
 
       <Route path="/:id">
