@@ -1,6 +1,9 @@
 import React from 'react';
 import {Switch, Route,Link} from "react-router-dom"
 
+//Components
+import Main from "../components/Main"
+
 //Material Ui
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -175,7 +178,7 @@ export default function Panel() {
             <div className={classes.drawerHeader} />
             <Switch>
                   <Route path="/panel/" exact>
-                  MainPage
+                    <Main/>
                   </Route>
 
                   <Route path="/panel/posts" exact>
