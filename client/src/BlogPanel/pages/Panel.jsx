@@ -3,6 +3,9 @@ import {Switch, Route,Link} from "react-router-dom"
 
 //Components
 import Main from "../components/Main"
+import Posts from "../components/Posts"
+import Comments from "../components/Comments"
+import Author from "../components/Author"
 
 //Material Ui
 import clsx from 'clsx';
@@ -182,15 +185,15 @@ export default function Panel() {
                   </Route>
 
                   <Route path="/panel/posts" exact>
-                  Posts
+                    <Posts/>
                   </Route>
 
                   <Route path="/panel/comments">
-                  Comments
+                    <Comments/>
                   </Route>
 
                   <Route path="/panel/author">
-                  Author
+                    <Author/>
                   </Route>
 
                   <Route path="/panel/posts/:id">
