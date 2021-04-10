@@ -20,6 +20,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import MuiAlert from '@material-ui/lab/Alert';
+import AddIcon from '@material-ui/icons/Add';
 
 //Bootstrap
 import {Container,Row,Col} from "react-bootstrap"
@@ -51,6 +52,15 @@ const Posts = ()=>{
 
       const [popup,setPopup] = useState({
             del:false,
+            newPost:{
+                  isOpen:false,
+                  info:{
+                        title:"",
+                        topic:"",
+                        imgUrl:"",
+                        details:[]
+                  }
+            },
             edit:{
                   isOpen:false,
                   info:{
@@ -91,7 +101,7 @@ const Posts = ()=>{
       }
 
       const handleDetails = (index,value)=>{
-            const temp = popup.edit.info.details
+            const temp = JSON.parse(JSON.stringify(popup.edit.info.details))
             temp[index] = value 
 
             setPopup(prevValue=>(
@@ -99,6 +109,50 @@ const Posts = ()=>{
                         isOpen:true,
                         info:{
                               ...prevValue.edit.info,
+                              details:temp
+                        }
+                  }}
+            ))
+      }
+
+
+      const handleNewPost = (e)=>{
+            const {name,value} = e.target
+
+            if(name === "title"){
+                  setPopup(prevValue=>(
+                        {...prevValue,newPost:{
+                              isOpen:true,
+                              info:{
+                                    ...prevValue.newPost.info,
+                                    title:value
+                              }
+                        }}
+                  ))
+            }
+            else if (name==="topic"){
+                  setPopup(prevValue=>(
+                        {...prevValue,newPost:{
+                              isOpen:true,
+                              info:{
+                                    ...prevValue.newPost.info,
+                                    topic:value
+                              }
+                        }}
+                  ))
+            }
+      }
+
+
+      const handleNewPostDetails = (index,value)=>{
+            const temp = JSON.parse(JSON.stringify(popup.newPost.info.details))
+            temp[index] = value 
+
+            setPopup(prevValue=>(
+                  {...prevValue,newPost:{
+                        isOpen:true,
+                        info:{
+                              ...prevValue.newPost.info,
                               details:temp
                         }
                   }}
@@ -115,11 +169,32 @@ const Posts = ()=>{
             console.log(popup)
       }
 
+      const addPost = () =>{
+            console.log(popup)
+      }
+
 
 
 
       return(
-      <div><Container fluid className={style.Posts}>
+      <div>
+      <Container>
+            <div className={style.newPost} onClick={()=>setPopup(prevValue=>({
+                  ...prevValue,
+                  newPost:{
+                        isOpen:true,
+                        info:{
+                              title:"",
+                              topic:"",
+                              imgUrl:"",
+                              details:[]
+                        }
+                  }
+            }))}>
+                  <AddIcon/>
+            </div>
+      </Container>
+      <Container fluid className={style.Posts}>
             <Row>
             {
                   db.map(item=>(
@@ -166,6 +241,101 @@ const Posts = ()=>{
             }
             </Row>
       </Container>
+      {/* Add Post */}
+      <Dialog 
+            open={popup.newPost.isOpen} 
+            TransitionComponent={Transition} 
+            onClose={()=>setPopup(prevValue=>({
+                        ...prevValue,
+                        newPost:{
+                              isOpen:false,
+                              info:{
+                                    title:"",
+                                    topic:"",
+                                    imgUrl:"",
+                                    details:[]
+                              }
+                        }
+                  }))} 
+                  aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">New Post</DialogTitle>
+            <DialogContent>
+            <DialogContentText>
+                  Add new post
+            </DialogContentText>
+                  <TextField
+                        autoFocus
+                        margin="dense"
+                        value={popup.newPost.info.title}
+                        type="text"
+                        name="title"
+                        label="Title"
+                        onChange={handleNewPost}
+                        fullWidth
+                  />
+                  <TextField
+                        autoFocus
+                        margin="dense"
+                        name="topic"
+                        label="Topic"
+                        value={popup.newPost.info.topic}
+                        onChange={handleNewPost}
+                        type="text"
+                        fullWidth
+                  />
+                  {
+                        popup.newPost.info.details.map((detail,index)=>{
+                              return(
+                                    <TextField
+                                          key={index}
+                                          autoFocus
+                                          margin="dense"
+                                          name="Detail"
+                                          label={"Details " + (index+1)}
+                                          value={detail}
+                                          onChange={(e)=>handleNewPostDetails(index,e.target.value)}
+                                          type="text"
+                                          fullWidth
+                                    />
+                              )
+                        })
+                  }
+                  <Button color="primary" onClick={()=>setPopup(prevValue=>{
+                        const detailss = JSON.parse(JSON.stringify(prevValue.newPost.info.details))
+                        detailss.push("")
+                        return({
+                        ...prevValue,
+                        newPost:{
+                              isOpen:true,
+                              info:{
+                                    title:prevValue.newPost.info.title,
+                                    topic:prevValue.newPost.info.topic,
+                                    imgUrl:prevValue.newPost.info.imgUrl,
+                                    details:detailss
+                              }
+                        }
+            })})}>add details</Button>
+            </DialogContent>
+            <DialogActions>
+            <Button onClick={()=>setPopup(prevValue=>({
+                        ...prevValue,
+                        newPost:{
+                              isOpen:false,
+                              info:{
+                                    title:"",
+                                    topic:"",
+                                    imgUrl:"",
+                                    details:[]
+                              }
+                        }
+                  }))} color="primary">
+                  Cancel
+            </Button>
+            <Button onClick={addPost} color="primary">
+                  Add
+            </Button>
+            </DialogActions>
+      </Dialog>
       {/* Delete Post */}
       <Dialog
                   open={popup.del}
@@ -268,10 +438,10 @@ const Posts = ()=>{
                               }
                         }
                   }))} color="primary">
-                  İptal
+                  Cancel
             </Button>
             <Button onClick={editPost} color="primary">
-                  Gönder
+                  Save
             </Button>
             </DialogActions>
       </Dialog>
