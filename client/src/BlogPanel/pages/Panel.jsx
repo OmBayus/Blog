@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Switch, Route,Link} from "react-router-dom"
+import Cookies from 'js-cookie'
+import axios from "axios"
+import {Redirect} from "react-router-dom"
 
 //Components
 import Main from "../components/Main"
@@ -28,6 +31,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ChatIcon from '@material-ui/icons/Chat';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 
 const drawerWidth = 240;
 
@@ -88,10 +93,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const url = "http://localhost:4000/api/"
+
 export default function Panel() {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  const [auth,setAuth] = useState(true)
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -101,8 +110,24 @@ export default function Panel() {
     setOpen(false);
   };
 
+  useEffect(()=>{
+    let token = Cookies.get("token")
+    
+    axios.post((url+"user/auth"),{token:token}).then(
+      res =>{
+        if(res.data.auth){
+          setAuth(true)
+        }
+        else{
+          setAuth(false)
+        }
+      }
+    )
+  },[])
+
   return (
     <div className={classes.root}>
+      {!auth && <Redirect to="/login" />}
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -169,6 +194,14 @@ export default function Panel() {
                   <ListItem button>
                         <ListItemIcon><AccountCircleIcon /></ListItemIcon>
                         <ListItemText primary={"Author"} />
+                  </ListItem>
+            </Link>
+        </List>
+        <List>
+            <Link to="/" onClick={()=>{Cookies.remove('token')}} style={{color:'black'}}>
+                  <ListItem button>
+                        <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                        <ListItemText primary={"Logout"} />
                   </ListItem>
             </Link>
         </List>
