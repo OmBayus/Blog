@@ -1,4 +1,5 @@
 import React, { useEffect,useState } from "react"
+import {Link} from "react-router-dom"
 
 //Icons
 import {AiFillGithub} from "react-icons/ai"
@@ -29,7 +30,7 @@ const BlogNavbar = ()=>{
             <header className={navbarStyle.header+ " " + (fixed && navbarStyle.fixed)}>
                   <Container>
                         <Navbar className={navbarStyle.navbar} expand="lg">
-                              <Navbar.Brand href="#home" className={navbarStyle.brand}>OmBayus Blog</Navbar.Brand>
+                              <Link to="/" className={navbarStyle.brand}>OmBayus Blog</Link>
                               <Nav className="ml-auto">
                                     <Nav.Link href="#home" className={navbarStyle.github}><AiFillGithub/>Github</Nav.Link>
                               </Nav>
