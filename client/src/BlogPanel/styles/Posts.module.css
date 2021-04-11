@@ -1,0 +1,30 @@
+.newPost{
+      border: 1px dotted gray;
+      border-width: 5px;
+      height: 150px;
+      margin-top: 5px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all .3s;
+}
+
+.newPost svg{
+      width: 10%;
+      height: 60%;
+      color: gray;
+      transition: all .3s;
+}
+
+.newPost:hover{
+      border: 1px dotted black;
+      border-width: 5px;
+}
+
+.newPost:hover > svg{
+      width: 15%;
+      height: 75%;
+      color: black;
+}

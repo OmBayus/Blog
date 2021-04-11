@@ -1,0 +1,55 @@
+.main{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 70vh;
+}
+.card{
+      height: 40%;
+      width: 45%;
+      background-color: gray;
+      margin: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: opacity .2s;
+}
+
+.card:hover{
+      opacity: 0.8;
+      color: white;
+}
+
+
+@media (min-width: 770px)
+{
+      .card{
+            height: 60%;
+            width: 30%;
+      }
+      .card h3{
+            font-size: 2rem;
+      }
+      
+      .card h1{
+            font-size: 6rem;
+      }
+}
+
+@media (max-width: 500px)
+{
+      .card{
+            height: 25%;
+            width: 50%;
+      }
+      .card h3{
+            font-size: 1.5rem;
+      }
+      
+      .card h1{
+            font-size: 3rem;
+      }
+}

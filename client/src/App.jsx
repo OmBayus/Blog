@@ -16,11 +16,11 @@ const App = ()=>{
         <Blog/>
       </Route>
 
-      <Route path="/panel" exact>
+      <Route path="/panel">
         <BlogPanel/>
       </Route>
 
-      <Route path="/login" exact>
+      <Route path="/login">
         <LoginPage/>
       </Route>
 
