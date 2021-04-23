@@ -20,8 +20,8 @@ const BlogItem = ({post})=>{
                               <Image className={blogItemStyle.img} src={post.imgUrl ? post.imgUrl : ""} thumbnail />
 
                               <div className={blogItemStyle.date}>
-                                    <h3 className="text-center">{post.date.getDate()}</h3>
-                                    <p>{monthNames[post.date.getMonth()]}</p>
+                                    <h3 className="text-center">{new Date(post.date).getDate()}</h3>
+                                    <p>{monthNames[new Date(post.date).getMonth()]}</p>
                               </div>
                         </div>
 
