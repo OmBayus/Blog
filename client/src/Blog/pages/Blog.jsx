@@ -1,4 +1,5 @@
-import React,{useEffect} from "react"
+import React,{useEffect, useState} from "react"
+import axios from "axios"
 
 //Layouts
 import Navbar from "../layouts/Navbar"
@@ -8,13 +9,18 @@ import Footer from "../layouts/Footer"
 import Hero from "../components/Hero"
 import BlogMain from "../components/BlogMain"
 
-//dummy data
-import {db} from "../db"
+const url = "http://localhost:4000/api/post"
 
 const Blog = ()=>{
 
+      const [db,setDB] = useState([])
+
       useEffect(()=>{
             window.scroll(0,0)
+            axios.get(url+"/")
+                  .then(res=>{
+                        setDB(res.data)
+                  })
       },[])
 
 

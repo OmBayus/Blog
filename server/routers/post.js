@@ -9,6 +9,15 @@ router.get("/",(req,res)=>{
       })
 })
 
+router.get("/:id",(req,res)=>{
+      Post.find({_id:req.params.id},(err,item)=>{
+            if(!err){
+                  return res.json(item)
+            }
+            res.json(false)
+      })
+})
+
 router.post("/",(req,res)=>{
       const post = new Post({
             title:req.body.title,
