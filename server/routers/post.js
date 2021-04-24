@@ -1,5 +1,6 @@
 const router= require('express').Router()
 const Post = require("../models/post")
+const fs = require('fs')
 
 router.get("/",(req,res)=>{
       Post.find({},(err,item)=>{
@@ -25,14 +26,34 @@ router.post("/",(req,res)=>{
             imgUrl:"http://localhost:4000/uploads/default.webp",
             date:new Date(),
             details:req.body.details,
-            author:req.body.author
+            author:{name:"OmBayus",details:"Harika Yazılımcı"}
       })
       post.save().then(item=>{
-            res.json(item)
+            if(req.files !== null){
+                  const file = req.files.file
+                  file.mv(`${__dirname}/../uploads/${item.id}.png`,err=>{
+                        if(err){
+                              res.json({error:"Resim Yüklenemedi"})
+                        }
+                        else{
+                              Post.findOneAndUpdate({_id:item.id},{imgUrl:("http://localhost:4000/uploads/"+item.id+".png")}, { new: true })
+                              .then(data => {
+                                    res.json(data)
+                              })
+                              .catch(err => res.json({error:err.message}))
+
+                        }
+                  }) 
+            }
+            else{
+                  res.json(item)
+            }
       })
       .catch(err=>{
             res.json({error:err.message})
       })
+
+      
 })
 
 router.put("/",(req,res)=>{

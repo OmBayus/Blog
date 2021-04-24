@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
-
+import Dropzone from "react-dropzone";
+import axios from 'axios';
 //dummy data
 import {db} from "../../Blog/db"
 
@@ -28,6 +29,7 @@ import {Container,Row,Col} from "react-bootstrap"
 //style
 import style from "../styles/Posts.module.css"
 
+
 const Transition = React.forwardRef(function Transition(props, ref) {
       return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -45,6 +47,8 @@ const useStyles = makeStyles({
         height: 140,
       },
     });
+
+const url = "http://localhost:4000"
 
 const Posts = ()=>{
 
@@ -71,6 +75,8 @@ const Posts = ()=>{
                   }
             }
       })
+
+      const [file,setFile] = useState([])
       
 
       const handlePost = (e)=>{
@@ -159,6 +165,17 @@ const Posts = ()=>{
             ))
       }
 
+      const handleDrop = acceptedFiles =>{
+
+            var reader = new FileReader()
+      
+            reader.onload = function(e){
+                  document.getElementById("resim").setAttribute("src",e.target.result)
+            }
+            reader.readAsDataURL(acceptedFiles[0]);
+            setFile(acceptedFiles[0]);
+      }
+
 
 
       const deletePost = ()=>{
@@ -169,8 +186,37 @@ const Posts = ()=>{
             console.log(popup)
       }
 
-      const addPost = () =>{
-            console.log(popup)
+      const addPost = async (e) =>{
+
+            e.preventDefault()
+
+            const data = new FormData()
+            data.append("title",popup.newPost.info.title)
+            data.append("topic",popup.newPost.info.topic)
+            data.append("file",file)
+            data.append("details",popup.newPost.info.details)
+
+            const res = await axios.post(url+"/api/post/",data)
+
+            if(res.data.error){
+                  console.log(res.data)
+            }
+            else{
+                  setFile([])
+                  setPopup(prevValue=>({
+                        ...prevValue,
+                        newPost:{
+                              isOpen:false,
+                              info:{
+                                    title:"",
+                                    topic:"",
+                                    imgUrl:"",
+                                    details:[]
+                              }
+                        }
+                  }))
+            }
+
       }
 
 
@@ -263,6 +309,20 @@ const Posts = ()=>{
             <DialogContentText>
                   Add new post
             </DialogContentText>
+                        <img id="resim" src="#" alt="img" className="dropzone-img" />
+                        <Dropzone
+                        onDrop={handleDrop}
+                        accept="image/*"
+                        minSize={200}
+                        maxSize={3072000}
+                        >
+                        {({ getRootProps, getInputProps }) => (
+                        <div {...getRootProps({ className: "dropzone" })}>
+                              <input {...getInputProps()} />
+                              <p>Drag'n'drop images, or click to select files</p>
+                        </div>
+                        )}
+                        </Dropzone>
                   <TextField
                         autoFocus
                         margin="dense"
@@ -317,7 +377,9 @@ const Posts = ()=>{
             })})}>add details</Button>
             </DialogContent>
             <DialogActions>
-            <Button onClick={()=>setPopup(prevValue=>({
+            <Button onClick={()=>{
+                  setFile([])
+                  setPopup(prevValue=>({
                         ...prevValue,
                         newPost:{
                               isOpen:false,
@@ -328,7 +390,7 @@ const Posts = ()=>{
                                     details:[]
                               }
                         }
-                  }))} color="primary">
+                  }))}} color="primary">
                   Cancel
             </Button>
             <Button onClick={addPost} color="primary">
@@ -368,7 +430,9 @@ const Posts = ()=>{
       <Dialog 
             open={popup.edit.isOpen} 
             TransitionComponent={Transition} 
-            onClose={()=>setPopup(prevValue=>({
+            onClose={()=>{
+                  setFile([])
+                  setPopup(prevValue=>({
                         ...prevValue,
                         edit:{
                               isOpen:false,
@@ -379,7 +443,7 @@ const Posts = ()=>{
                                     details:[]
                               }
                         }
-                  }))} 
+                  }))}} 
                   aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Edit Post</DialogTitle>
             <DialogContent>
@@ -426,7 +490,9 @@ const Posts = ()=>{
                   
             </DialogContent>
             <DialogActions>
-            <Button onClick={()=>setPopup(prevValue=>({
+            <Button onClick={()=>{
+                  setFile([])
+                  setPopup(prevValue=>({
                         ...prevValue,
                         edit:{
                               isOpen:false,
@@ -437,7 +503,7 @@ const Posts = ()=>{
                                     details:[]
                               }
                         }
-                  }))} color="primary">
+                  }))}} color="primary">
                   Cancel
             </Button>
             <Button onClick={editPost} color="primary">
