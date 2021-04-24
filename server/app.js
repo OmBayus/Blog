@@ -5,8 +5,10 @@ const app = express()
 const config = require("./utils/config")
 const logger = require("./utils/logger")
 
+//routers
 const postRouter = require("./routers/post")
 const userRouter = require("./routers/user")
+const commentRouter = require("./routers/comment")
 
 const middleware = require("./utils/middleware")
 
@@ -24,6 +26,7 @@ app.use(express.json())
 
 app.use("/api/post",postRouter)
 app.use("/api/user",userRouter)
+app.use("/api/comment",commentRouter)
 
 app.use(middleware.unknownEndpoint)
 

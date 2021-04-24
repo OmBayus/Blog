@@ -55,6 +55,10 @@ const postSchema = new mongoose.Schema({
                         type:Date,
                         required:false
                   },
+                  email:{
+                        type:String,
+                        required:false
+                  },
                   details:{
                         type:String,
                         required:false

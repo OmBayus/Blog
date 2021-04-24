@@ -7,16 +7,21 @@ import { Container, Form, Row,Col } from "react-bootstrap"
 // style
 import styles from "../styles/blogdetailsmain.module.css"
 
-const url = "http://localhost:4000/api/post"
+const url = "http://localhost:4000"
 
 const BlogDetailsMain = ({match})=>{
 
       const [post,setPost] = useState({})
       const [loading,setLoading] = useState(true)
+      const [comment,setComment] = useState({
+            comment:"",
+            name:"",
+            email:""
+      })
 
       useEffect(()=>{
             const getData = async ()=>{
-                  await axios.get(url+"/"+match)
+                  await axios.get(url+"/api/post/"+match)
                   .then(res=>{
                         if(res.data === false){
                               window.location.replace("/")
@@ -29,6 +34,35 @@ const BlogDetailsMain = ({match})=>{
             }
             getData();
       },[match])
+
+      const handleComment = (e)=>{
+            const {name,value} = e.target
+
+
+            setComment(prevValue=>{
+                  if(name === "name"){
+                        return ({comment:prevValue.comment,name:value,email:prevValue.email})
+                  }
+                  else if(name === "email"){
+                        return ({comment:prevValue.comment,name:prevValue.name,email:value})
+                  }
+                  else if(name === "comment"){
+                        return ({comment:value,name:prevValue.name,email:prevValue.email})
+                  }
+            })
+      }
+
+      const sendComment = (e)=>{
+            e.preventDefault()
+            axios.post(url+"/api/comment/"+match,comment).then((res)=>{
+                  setPost(res.data)
+                  setComment({
+                        comment:"",
+                        name:"",
+                        email:""
+                  })
+            })
+      }
 
       if(loading){
             return(<div>Loading...</div>)
@@ -84,21 +118,21 @@ const BlogDetailsMain = ({match})=>{
       
                               <div className={styles.commentForm}>
                                     <h4>Leave a Reply</h4>
-                                    <Form className="form-contact comment_form" action="#" id="commentForm">
+                                    <Form className="form-contact comment_form" onSubmit={sendComment} action="#" id="commentForm">
                                           <Row>
                                                 <Col xs={12}>
                                                       <Form.Group className={styles.formitem}>
-                                                            <textarea className={styles.formcontrol} style={{width:"100%"}} name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
+                                                            <textarea className={styles.formcontrol} onChange={handleComment} value={comment.comment} style={{width:"100%"}} name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
                                                       </Form.Group>
                                                 </Col>
                                                 <Col sm={6}>
                                                       <Form.Group className={styles.formitem}>
-                                                            <input className={styles.formcontrol} name="name" id="name" type="text" placeholder="Name"/>
+                                                            <input className={styles.formcontrol} onChange={handleComment} value={comment.name} name="name" id="name" type="text" placeholder="Name"/>
                                                       </Form.Group>
                                                 </Col>
                                                 <Col sm={6}>
                                                       <Form.Group className={styles.formitem}>
-                                                            <input className={styles.formcontrol} name="email" id="email" type="email" placeholder="Email"/>
+                                                            <input className={styles.formcontrol} onChange={handleComment} value={comment.email} name="email" id="email" type="email" placeholder="Email"/>
                                                       </Form.Group>
                                                 </Col>
                                           </Row>
