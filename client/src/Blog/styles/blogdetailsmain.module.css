@@ -147,6 +147,7 @@
       padding-left: 18px;
       font-size: 13px;
       background: transparent;
+      width: 100%;
 }
 .formcontrol:focus{
       outline: 0;
