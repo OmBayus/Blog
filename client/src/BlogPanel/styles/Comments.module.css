@@ -1,0 +1,40 @@
+.comment{
+      padding: 15px;
+      margin-bottom: 48px;
+      box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.289);
+      border-radius: 10px;
+      position: relative;
+}
+
+.comment > p{
+      margin-bottom: 10px;
+      color: #777777;
+      font-size: 15px;
+}
+
+.comment > div h5{
+      font-size: 16px;
+      margin-bottom: 0px;
+      color: #2a2a2a;
+}
+
+.date{
+      font-size: 14px;
+      color: #999999;
+      margin-bottom: 0;
+      margin-left: 20px;
+}
+
+.close{
+      position:absolute;
+      top: 10px;
+      right: 10px;
+      color: red;
+      cursor: pointer;
+      font-size: 1.5rem;
+      transition: opacity .2s;
+}
+
+.close:hover{
+      opacity: 0.7;
+}
