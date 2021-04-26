@@ -1,8 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import Dropzone from "react-dropzone";
 import axios from 'axios';
-//dummy data
-import {db} from "../../Blog/db"
 
 //Material Ui
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,7 +18,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-import MuiAlert from '@material-ui/lab/Alert';
 import AddIcon from '@material-ui/icons/Add';
 
 //Bootstrap
@@ -33,10 +30,6 @@ import style from "../styles/Posts.module.css"
 const Transition = React.forwardRef(function Transition(props, ref) {
       return <Slide direction="up" ref={ref} {...props} />;
 });
-
-function Alert(props) {
-      return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 const useStyles = makeStyles({
       root: {

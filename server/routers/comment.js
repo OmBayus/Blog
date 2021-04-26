@@ -9,6 +9,21 @@ router.get("/",(req,res)=>{
       })
 })
 
+router.post("/delete",(req,res)=>{
+      const {postid,id} = req.body
+      Post.findByIdAndUpdate({_id:postid},
+            { "$pull": {"comments":{ "_id":id } }},
+            function (err, data) {
+                if (err) {
+                      console.log(err)
+                  }
+                else{
+                  res.json(data);
+                }
+            }
+        );
+})
+
 router.post("/:id",(req,res)=>{
       const param = req.params.id
       // console.log(param)
@@ -27,6 +42,7 @@ router.post("/:id",(req,res)=>{
             }
         );
 })
+
 
 
 module.exports = router

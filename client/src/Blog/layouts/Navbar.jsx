@@ -32,7 +32,7 @@ const BlogNavbar = ()=>{
                         <Navbar className={navbarStyle.navbar} expand="lg">
                               <Link to="/" className={navbarStyle.brand}>OmBayus Blog</Link>
                               <Nav className="ml-auto">
-                                    <Nav.Link href="#home" className={navbarStyle.github}><AiFillGithub/>Github</Nav.Link>
+                                    <Nav.Link href="https://github.com/OmBayus" className={navbarStyle.github}><AiFillGithub/>Github</Nav.Link>
                               </Nav>
                         </Navbar>
                   </Container>

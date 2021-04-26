@@ -47,7 +47,7 @@ const LoginPage = ()=>{
             axios.post((url+"user/token"),user).then(
                   res =>{
                         if(res.data.auth){
-                              Cookies.set("token",res.data.token, { expires: 1/24/60/2 })
+                              Cookies.set("token",res.data.token, { expires: 1/24/30 })
                               setTimeout(()=>{setAuth(true)},500)
                         }
                         else{
