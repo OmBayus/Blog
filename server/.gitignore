@@ -7,6 +7,8 @@
 # production
 /build
 
+
+
 # misc
 .DS_Store
 .env.local
@@ -14,5 +16,6 @@
 .env.test.local
 .env.production.local
 .env
+*.png
 
 npm-debug.log*
