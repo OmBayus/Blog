@@ -58,29 +58,42 @@ router.post("/",(req,res)=>{
 
 router.put("/",(req,res)=>{
 
-      Post.findOne({_id:req.body.id},(err,item)=>{
-            if(!err){
-                  var post = item
-                  post.title = req.body.title
-                  post.topic = req.body.topic
-                  post.details = req.body.details
-                  
+      if(req.files !== null){
+            const file = req.files.file
+            file.mv(`${__dirname}/../uploads/${req.body.id}.png`,err=>{
+                  if(err){
+                        res.json({error:"Resim Yüklenemedi"})
+                  }
+                  else{
+                        Post.findOneAndUpdate({_id:req.body.id},{...req.body,imgUrl:("http://localhost:4000/uploads/"+req.body.id+".png")}, { new: true })
+                        .then(data => {
+                              res.json(data)
+                        })
+                        .catch(err => res.json({error:err.message}))
 
-                  Post.findOneAndUpdate({_id:req.body.id},post,{new:true})
+                  }
+            }) 
+      }
+      else{
+            Post.findOneAndUpdate({_id:req.body.id},{...req.body},{new:true})
                         .then(updatedPost=>{
                               res.json(updatedPost)
                         })
                         .catch(err=> res.json({error:err.message}))
-            }
-            else{
-                  res.json({error:err.message})
-            }
-      })
+      }
+      
 })
 
-router.delete("/",(req,res)=>{
-      Post.findOneAndDelete({_id:req.body.id})
+router.delete("/:id",(req,res)=>{
+      var path = `${__dirname}/../uploads/${req.params.id}.png`
+      Post.findOneAndDelete({_id:req.params.id})
             .then(item=>{
+                  try {
+                        fs.unlinkSync(path) 
+                  } catch (error) {
+                        res.json(item)
+                  }
+                  
                   res.json(item)
             })
             .catch(err=>res.json({error:err.message}))
