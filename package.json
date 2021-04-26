@@ -1,0 +1,24 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "⚠️ This project is under construction. You can follow my progress on develop branch.",
+  "main": "index.js",
+  "scripts": {
+    "server":"cd ./server && npm start",
+    "client":"cd ./client && npm start",
+    "start":"concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OmBayus/Blog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OmBayus/Blog/issues"
+  },
+  "homepage": "https://github.com/OmBayus/Blog#readme",
+  "dependencies": {
+    "concurrently": "^6.0.2"
+  }
+}
