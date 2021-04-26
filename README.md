@@ -1,5 +1,7 @@
 # Blog
 
+A blog website with its panel that has made with React.
+<br/>
 This project has made with react.
 
 ## Technologies used:
