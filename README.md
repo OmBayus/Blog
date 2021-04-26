@@ -1,6 +1,6 @@
 # Blog
 
-A blog website with its panel that has made with React.
+A blog website with its panel.
 <br/>
 This project has made with react.
 
