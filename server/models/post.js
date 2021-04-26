@@ -55,6 +55,10 @@ const postSchema = new mongoose.Schema({
                         type:Date,
                         required:false
                   },
+                  email:{
+                        type:String,
+                        required:false
+                  },
                   details:{
                         type:String,
                         required:false
@@ -62,5 +66,13 @@ const postSchema = new mongoose.Schema({
             }
       ]
 })
+
+postSchema.set('toJSON', {
+      transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id.toString()
+        delete returnedObject._id
+        delete returnedObject.__v
+      }
+    })
 
 module.exports = mongoose.model('Post', postSchema)

@@ -8,7 +8,6 @@ import {Redirect} from "react-router-dom"
 import Main from "../components/Main"
 import Posts from "../components/Posts"
 import Comments from "../components/Comments"
-import Author from "../components/Author"
 
 //Material Ui
 import clsx from 'clsx';
@@ -27,7 +26,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ChatIcon from '@material-ui/icons/Chat';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
@@ -99,8 +97,10 @@ export default function Panel() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  
 
   const [auth,setAuth] = useState(true)
+  const [loading,setLoading] = useState({isloading:true,message:"Cevap Bekleniyor..."})
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -110,130 +110,140 @@ export default function Panel() {
     setOpen(false);
   };
 
-  useEffect(()=>{
+  const Auth = async ()=>{
     let token = Cookies.get("token")
     
-    axios.post((url+"user/auth"),{token:token}).then(
-      res =>{
-        if(res.data.auth){
-          setAuth(true)
-        }
-        else{
-          setAuth(false)
-        }
+    const res = await axios.post((url+"user/auth"),{token:token})
+    .catch(err=>{
+      console.log(err)
+    })
+
+    if(res){
+      if(res.data.auth){
+        setAuth(true)
+        setLoading({isloading:false})
       }
-    )
+      else{
+        setAuth(false)
+        setLoading({isloading:false})
+      }
+    }
+    else{
+      setLoading({isloading:true,message:"Serverdan cevap alınamıyor!"})
+    }
+    
+  }
+
+  useEffect(()=>{
+    Auth()
   },[])
 
-  return (
-    <div className={classes.root}>
-      {!auth && <Redirect to="/login" />}
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Panel
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-            <Link to="/panel/" style={{color:'black'}}>
-                  <ListItem button>
-                        <ListItemIcon><EqualizerIcon /></ListItemIcon>
-                        <ListItemText primary={"MainPage"} />
-                  </ListItem>
-            </Link>
-        </List>
-        <Divider />
-        <List>
-            <Link to="/panel/posts" style={{color:'black'}}>
-                  <ListItem button>
-                        <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
-                        <ListItemText primary={"Posts"} />
-                  </ListItem>
-            </Link>
-            <Link to="/panel/comments" style={{color:'black'}}>
-                  <ListItem button>
-                        <ListItemIcon><ChatIcon /></ListItemIcon>
-                        <ListItemText primary={"Comments"} />
-                  </ListItem>
-            </Link>
-        </List>
-        <Divider />
-        <List>
-            <Link to="/panel/author" style={{color:'black'}}>
-                  <ListItem button>
-                        <ListItemIcon><AccountCircleIcon /></ListItemIcon>
-                        <ListItemText primary={"Author"} />
-                  </ListItem>
-            </Link>
-        </List>
-        <List>
-            <Link to="/" onClick={()=>{Cookies.remove('token')}} style={{color:'black'}}>
-                  <ListItem button>
-                        <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                        <ListItemText primary={"Logout"} />
-                  </ListItem>
-            </Link>
-        </List>
-      </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-            <div className={classes.drawerHeader} />
-            <Switch>
-                  <Route path="/panel/" exact>
-                    <Main/>
-                  </Route>
+  if(loading.isloading){
+    return(<div>
+    <h1>{loading.message}</h1>
 
-                  <Route path="/panel/posts" exact>
-                    <Posts/>
-                  </Route>
+    </div>)
+  }
+  else{
 
-                  <Route path="/panel/comments">
-                    <Comments/>
-                  </Route>
+    return (
+      <div className={classes.root}>
+        {!auth && <Redirect to="/login" />}
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap>
+              Panel
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+              <Link to="/panel/" style={{color:'black'}}>
+                    <ListItem button>
+                          <ListItemIcon><EqualizerIcon /></ListItemIcon>
+                          <ListItemText primary={"MainPage"} />
+                    </ListItem>
+              </Link>
+          </List>
+          <Divider />
+          <List>
+              <Link to="/panel/posts" style={{color:'black'}}>
+                    <ListItem button>
+                          <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
+                          <ListItemText primary={"Posts"} />
+                    </ListItem>
+              </Link>
+              <Link to="/panel/comments" style={{color:'black'}}>
+                    <ListItem button>
+                          <ListItemIcon><ChatIcon /></ListItemIcon>
+                          <ListItemText primary={"Comments"} />
+                    </ListItem>
+              </Link>
+          </List>
+          <Divider />
+          <List>
+              <Link to="/" onClick={()=>{Cookies.remove('token')}} style={{color:'black'}}>
+                    <ListItem button>
+                          <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                          <ListItemText primary={"Logout"} />
+                    </ListItem>
+              </Link>
+          </List>
+        </Drawer>
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: open,
+          })}
+        >
+              <div className={classes.drawerHeader} />
+              <Switch>
+                    <Route path="/panel/" exact>
+                      <Main/>
+                    </Route>
 
-                  <Route path="/panel/author">
-                    <Author/>
-                  </Route>
+                    <Route path="/panel/posts" exact>
+                      <Posts/>
+                    </Route>
 
-                  <Route path="/panel/posts/:id">
-                  SA
-                  </Route>
-            </Switch>
-      </main>
-    </div>
-  );
+                    <Route path="/panel/comments">
+                      <Comments/>
+                    </Route>
+
+                    <Route path="/panel/posts/:id">
+                    SA
+                    </Route>
+              </Switch>
+        </main>
+      </div>
+    );
+  }
 }
