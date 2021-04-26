@@ -8,7 +8,6 @@ import {Redirect} from "react-router-dom"
 import Main from "../components/Main"
 import Posts from "../components/Posts"
 import Comments from "../components/Comments"
-import Author from "../components/Author"
 
 //Material Ui
 import clsx from 'clsx';
@@ -27,7 +26,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ChatIcon from '@material-ui/icons/Chat';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
@@ -213,14 +211,6 @@ export default function Panel() {
           </List>
           <Divider />
           <List>
-              <Link to="/panel/author" style={{color:'black'}}>
-                    <ListItem button>
-                          <ListItemIcon><AccountCircleIcon /></ListItemIcon>
-                          <ListItemText primary={"Author"} />
-                    </ListItem>
-              </Link>
-          </List>
-          <List>
               <Link to="/" onClick={()=>{Cookies.remove('token')}} style={{color:'black'}}>
                     <ListItem button>
                           <ListItemIcon><ExitToAppIcon /></ListItemIcon>
@@ -246,10 +236,6 @@ export default function Panel() {
 
                     <Route path="/panel/comments">
                       <Comments/>
-                    </Route>
-
-                    <Route path="/panel/author">
-                      <Author/>
                     </Route>
 
                     <Route path="/panel/posts/:id">

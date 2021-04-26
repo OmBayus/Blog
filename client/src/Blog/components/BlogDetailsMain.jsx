@@ -72,7 +72,7 @@ const BlogDetailsMain = ({match})=>{
                   <section className={styles.main}>
                         <Container>
                               <div className={styles.postImg}>
-                                    <img src="/resim.webp" alt="post-img"/>
+                                    <img src={post.imgUrl} alt="post-img"/>
                               </div>
                               <div className={styles.blogdetalis}>
                                     <h2>{post.title}</h2>
